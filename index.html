@@ -1,149 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canada Ashram CM Gurukarya Form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canada Ashram CM Gurukarya Form</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+  <body style="background-color: pink">
+    <!-- Navbar As a heading -->
+    <nav class="navbar bg-dark" style="color: #ff6263">
+      <div class="container">
+        <h5 style="margin: 10px">
+          Jai Baba Swami ! Please fill out the Gurukarya (Volunteering
+          Opportunities) below for Chaitanya Mahotsav 2022.
+        </h5>
+      </div>
+    </nav>
 
-<body style="background-color: pink;">
-  <!-- As a link 
-<nav class="navbar bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+    <form action="">
+      <div class="container col-sm-6">
+        <table class="table" style="text-align: center">
+          <tbody>
+            <tr>
+              <td>
+                <span><h6>Full Name</h6></span>
+                <input
+                  class="form-control"
+                  id="fullName"
+                  type="text"
+                  placeholder="Your Full Name"
+                  aria-label="Full Name"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span><h6>Date of Arrival</h6></span>
+                <input
+                  class="form-control"
+                  id="dateOfArrival"
+                  type="date"
+                  placeholder="Date of Arrival"
+                  aria-label="Date of Arrival"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span><h6>Available for Gurukarya ?</h6></span>
+                <div class="dropdown">
+                  <select id="availableForGurukarya">
+                    <option value="yes" selected>Always 😎 Yes!</option>
+                    <option value="No">May Be Next Time 🙄</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span><h6>Type of Gurukarya</h6></span>
+                <div class="dropdown">
+                  <select id="typeOfGurukarya">
+                    <option value="None. I'll only meditate">
+                      None. I'll only meditate 🧘
+                    </option>
+                    <option value="Indoor Only">Indoor Only 🏠</option>
+                    <option value="Indoor/Outdoor Cleaning">
+                      Indoor/Outdoor Cleaning 🧹
+                    </option>
+                    <option value="Light Labor/Lifting">
+                      Light Labor/Lifting 👷
+                    </option>
+                    <option value="Heavy Labor/Lifting">
+                      Heavy Labor/Lifting 🏋
+                    </option>
+                    <option value="JBS! Give Me Anything" selected>
+                      JBS! Give Me Anything 🕉
+                    </option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button type="button" class="btn btn-warning" id="btnInsertData">
+        <b>Ok, let's meet at Ashram !</b>
+      </button>
     </div>
-  </nav>-->
 
-  <!-- As a heading -->
-  <nav class="navbar bg-dark" style="color: #FF6263">
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
 
-    <h5 style="margin: 10px;">Jai Baba Swami ! Please fill out the Gurukarya (Volunteering Opportunities) below for
-      Chaitanya Mahotsav 2022. </h5>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAty-UALqSmf_rX6X_sjnyHbWqGo8CghXY",
+        authDomain: "canadaashramcmgurukaryaform.firebaseapp.com",
+        databaseURL:
+          "https://canadaashramcmgurukaryaform-default-rtdb.firebaseio.com",
+        projectId: "canadaashramcmgurukaryaform",
+        storageBucket: "canadaashramcmgurukaryaform.appspot.com",
+        messagingSenderId: "886207278430",
+        appId: "1:886207278430:web:26fd08d2762b1f7f27b3cf",
+      };
 
-  </nav>
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
 
-  <table class="table" style="text-align: center;">
-    <thead>
-      <tr>
-        <th scope="col">Full Name</th>
-        <th scope="col">Date of Arrival</th>
-        <th scope="col">Available for Gurukarya ?</th>
-        <th scope="col">Type of Gurukarya</th>
-      </tr>
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+      } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
 
-    </thead>
-    <tbody>
-      <tr>
-        <td><input class="form-control" id="fullName" type="text" placeholder="Full Name" aria-label="Full Name"></td>
-        <td><input class="form-control" id="dateOfArrival" type="date" placeholder="Date of Arrival"
-            aria-label="Date of Arrival"></td>
-        <td>
-          <!--<div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Yes/No</button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Yes</a></li>
-              <li><a class="dropdown-item" href="#">No</a></li>
-            </ul>
-          </div>
-        <td>-->
-          <div class="dropdown">
-            <select id="availableForGurukarya">
-              <option value="yes" selected>Yes</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-        </td>
-        <td>
-          <!--<div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Pick One</button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">None. I'll only meditate</a></li>
-              <li><a class="dropdown-item" href="#">Indoor Only</a></li>
-              <li><a class="dropdown-item" href="#">Indoor/Outdoor Cleaning</a></li>
-              <li><a class="dropdown-item" href="#">Light Labor/Lifting</a></li>
-              <li><a class="dropdown-item" href="#">Heavy Labor/Lifting</a></li>
-              <li><a class="dropdown-item" href="#">JBS! Give Me Anything</a></li>
-            </ul>
-          </div>-->
-          <div class="dropdown">
-            <select id="typeOfGurukarya">
-              <option value="None. I'll only meditate">None. I'll only meditate</option>
-              <option value="Indoor Only">Indoor Only</option>
-              <option value="Indoor/Outdoor Cleaning">Indoor/Outdoor Cleaning</option>
-              <option value="Light Labor/Lifting">Light Labor/Lifting</option>
-              <option value="Heavy Labor/Lifting">Heavy Labor/Lifting</option>
-              <option value="JBS! Give Me Anything" selected>JBS! Give Me Anything</option>
-            </select>
-          </div>
-        </td>
-      </tr>
+      const db = getDatabase();
 
-    </tbody>
-  </table>
+      let fullName = document.querySelector("#fullName");
+      let dateOfArrival = document.querySelector("#dateOfArrival");
+      let btnInsertData = document.querySelector("#btnInsertData");
+      let availableForGurukarya = document.querySelector(
+        "#availableForGurukarya"
+      );
+      let typeOfGurukarya = document.querySelector("#typeOfGurukarya");
 
-  <div class="d-grid gap-2 col-6 mx-auto">
-    <button type="button" class="btn btn-warning" id="btnInsertData">Ok, let's meet at Ashram !</button>
-  </div>
+      function InsertData() {
+        if (
+          fullName.value &&
+          dateOfArrival.value &&
+          availableForGurukarya.value &&
+          typeOfGurukarya.value
+        ) {
+          set(ref(db, "People/" + fullName.value), {
+            Name: fullName.value,
+            DateOfArrival: dateOfArrival.value,
+            AvailableForGurukarya: availableForGurukarya.value,
+            TypeOfGurukarya: typeOfGurukarya.value,
+          })
+            .then(() => {
+              alert("You've been registered !");
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        } else {
+          alert("Hey, Please fill out all the details");
+        }
+      }
 
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+      btnInsertData.addEventListener("click", InsertData);
+    </script>
 
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAty-UALqSmf_rX6X_sjnyHbWqGo8CghXY",
-      authDomain: "canadaashramcmgurukaryaform.firebaseapp.com",
-      databaseURL: "https://canadaashramcmgurukaryaform-default-rtdb.firebaseio.com",
-      projectId: "canadaashramcmgurukaryaform",
-      storageBucket: "canadaashramcmgurukaryaform.appspot.com",
-      messagingSenderId: "886207278430",
-      appId: "1:886207278430:web:26fd08d2762b1f7f27b3cf"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-
-    import { getDatabase, set, get, update, remove, ref, child }
-      from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js"
-
-    const db = getDatabase();
-
-    let fullName = document.querySelector("#fullName");
-    let dateOfArrival = document.querySelector("#dateOfArrival")
-    let btnInsertData = document.querySelector("#btnInsertData")
-    let availableForGurukarya = document.querySelector("#availableForGurukarya")
-    let typeOfGurukarya = document.querySelector("#typeOfGurukarya")
-
-
-
-    function InsertData() {
-      set(ref(db, "People/" + fullName.value), {
-        Name: fullName.value,
-        DateOfArrival: dateOfArrival.value,
-        AvailableForGurukarya: availableForGurukarya.value,
-        TypeOfGurukarya: typeOfGurukarya.value
-      })
-        .then(() => {
-          alert("You've been registered !")
-        })
-        .catch((error) => {
-          alert(error)
-        });
-    }
-
-    btnInsertData.addEventListener('click', InsertData)
-
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
