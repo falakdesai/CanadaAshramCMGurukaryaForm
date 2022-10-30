@@ -55,9 +55,27 @@
             </tr>
             <tr>
               <td>
+                <span><h6>Transportation</h6></span>
+                <div class="dropdown">
+                  <select id="transportation" style="text-align: center">
+                    <option value="I Need A Ride" selected>
+                      I Need A Ride 🙋
+                    </option>
+                    <option value="I'll Give A Ride">
+                      I'll Give A Ride 🚗
+                    </option>
+                    <option value="Montreal Local">
+                      हम तो पहुंचे हुए ही हे (Montreal Local) 🎯
+                    </option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
                 <span><h6>Available for Gurukarya ?</h6></span>
                 <div class="dropdown">
-                  <select id="availableForGurukarya">
+                  <select id="availableForGurukarya" style="text-align: center">
                     <option value="yes" selected>Always 😎 Yes!</option>
                     <option value="No">May Be Next Time 🙄</option>
                   </select>
@@ -104,7 +122,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">JBS. Thank You.</h5>
+            <h5 class="modal-title">🙏 JBS 🙏</h5>
             <button
               type="button"
               class="btn-close"
@@ -113,7 +131,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p>We've Received Your Confirmation.</p>
+            <p>We've Received Your Confirmation ✅</p>
           </div>
           <div class="modal-footer">
             <button
@@ -168,19 +186,22 @@
         "#availableForGurukarya"
       );
       let typeOfGurukarya = document.querySelector("#typeOfGurukarya");
+      let transportationRequired = document.querySelector("#transportation");
 
       function InsertData() {
         if (
           fullName.value &&
           dateOfArrival.value &&
           availableForGurukarya.value &&
-          typeOfGurukarya.value
+          typeOfGurukarya.value &&
+          transportationRequired
         ) {
           set(ref(db, "People/" + fullName.value), {
             Name: fullName.value,
             DateOfArrival: dateOfArrival.value,
             AvailableForGurukarya: availableForGurukarya.value,
             TypeOfGurukarya: typeOfGurukarya.value,
+            Transportation: transportationRequired.value,
           })
             .then(() => {
               new bootstrap.Modal(document.getElementById("myModal")).show();
@@ -189,7 +210,7 @@
               alert(error);
             });
         } else {
-          alert("Hey, Please fill out all the details");
+          alert("अपना टाइम आएगा..! 😉 Please fill out all the details first ");
         }
       }
 
